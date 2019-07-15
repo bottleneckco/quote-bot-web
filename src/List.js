@@ -14,11 +14,12 @@ const List = (props) => {
   return (
     <div>
       <h3>List heading</h3>
-      {props.quotes.map((q, index) => (
+      {props.quotes.map((q) => (
         // <ListItem key={index} quote={q} />))}
-        <div key={index}>
+        <div key={q.id}>
           <p>{q.user}</p>
           <p>{q.msg}</p>
+          <button onClick={()=>props.deleteQuote(q.id)}>test</button>
         </div>
       ))}
     </div>
