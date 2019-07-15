@@ -11,7 +11,7 @@ class Quotes extends Component {
     quotes.forEach(q => {
       quotesJSX.push(
         <ListItem
-          sn={sn} key={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
+          key={q.id} sn={sn} id={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
           />)
       
       sn++;
