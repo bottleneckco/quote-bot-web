@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import List from './List.js'
 import Db from './firebase.js';
 
 import Quotes from './containers/Quotes';
@@ -29,10 +28,10 @@ class App extends Component {
   }
 
   retrieveData() {
-    // const grp_id = 'zwC3BnBHxVa4E28eeQ6L';
-    const grp_id = '-394500082';
+    // TODO: Dynamic grp id
+    const grp_id = 'zwC3BnBHxVa4E28eeQ6L';
     this.collectionRef = Db.collection('chats').doc(grp_id).collection('msgs');
-    this.unsubscribe = this.collectionRef.onSnapshot(res => {
+    this.unsubscribe = this.collectionRef.orderBy("datetime").onSnapshot(res => {
 
       // res is QuerySnapshot, res.docs is an array of queryDocumentSnapshots
       const quotesArr = res.docs.map(msgDoc => {

@@ -20,7 +20,7 @@ const ListItem = (props) => {
       <span>{props.sn}</span>
       <span>{props.quote}</span>
       <span>{props.username}</span>
-      {props.sn != 'SN' ? <button onClick={()=> props.deleteQuote(props.id)}>Delete</button> : '' }
+      {props.sn !== 'SN' ? <button onClick={()=> props.deleteQuote(props.id)}>Delete</button> : '' }
     </ListItemDiv>
   );
 };
