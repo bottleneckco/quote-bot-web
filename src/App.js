@@ -33,28 +33,50 @@ class App extends Component {
   }
 
   retrieveData() {
-    const grp_id = 'zwC3BnBHxVa4E28eeQ6L';
-    const collectionRef = Db.collection('chats').doc(grp_id).collection('msgs');
-    collectionRef.get()
-      .then(res => { 
-        // res is QuerySnapshot, res.docs is an array of queryDocumentSnapshots
-        const quotesArr = res.docs.map(msgDoc => {
-          let msgDocData = msgDoc.data();
-          return {
-            id: msgDoc.id,
-            msg: msgDocData.msg, 
-            user: msgDocData.user,
-            datetime: new Date(msgDocData.datetime.seconds * 1000),
-          };
-        })
+    // const grp_id = 'zwC3BnBHxVa4E28eeQ6L';
+    // const collectionRef = Db.collection('chats').doc(grp_id).collection('msgs');
+    // collectionRef.get()
+    //   .then(res => { 
+    //     // res is QuerySnapshot, res.docs is an array of queryDocumentSnapshots
+    //     const quotesArr = res.docs.map(msgDoc => {
+    //       let msgDocData = msgDoc.data();
+    //       return {
+    //         id: msgDoc.id,
+    //         msg: msgDocData.msg, 
+    //         user: msgDocData.user,
+    //         datetime: new Date(msgDocData.datetime.seconds * 1000),
+    //       };
+    //     })
         
+    //     this.setState({ quotes: quotesArr })
+    //     console.log("Pulled data")
 
-        this.setState({ quotes: quotesArr })
-        console.log("Pulled data")
-      })
-      .catch(err => {
-        console.log("Error getting document: ", err);
-      })
+    // const grp_id = 'zwC3BnBHxVa4E28eeQ6L';
+    const grp_id = '-394500082';
+    const collectionRef = Db.collection('chats').doc(grp_id).collection('msgs');
+    collectionRef.onSnapshot(res => {
+
+      // res is QuerySnapshot, res.docs is an array of queryDocumentSnapshots
+      const quotesArr = res.docs.map(msgDoc => {
+        let msgDocData = msgDoc.data();
+        let datetime = new Date();
+        if (msgDocData.hasOwnProperty('datetime') && msgDocData.datetime.hasOwnProperty('seconds')) {
+          datetime = new Date(msgDocData.datetime.seconds * 1000); 
+        }
+        
+        return {
+          id: msgDoc.id,
+          msg: msgDocData.msg, 
+          user: msgDocData.user,
+          datetime: datetime,
+        };
+      });
+
+      this.setState({ quotes: quotesArr });
+      console.log("Refreshed data");
+    }, err => {
+      console.log("Unable to refresh data: " + err);
+    })
   }
 
   componentWillMount() {
