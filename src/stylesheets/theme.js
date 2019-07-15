@@ -2,7 +2,7 @@ const theme = {
   typeface: 'Helvetica Neue',
   black: '#353535',
   white: '#FFF',
-  grey: '#EEE'
+  grey: '#f4f4f4'
 };
 
 export default theme;
