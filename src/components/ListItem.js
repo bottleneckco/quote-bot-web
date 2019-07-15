@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ListItemDiv = styled.div`
   display: grid;
-  grid-template: "id quote username" / 2em 1fr 5rem;
+  grid-template: "sn quote username" / 2em 1fr 5rem;
   justify-content: stretch;
   
   margin-bottom: 0.5rem;
@@ -17,9 +17,10 @@ const ListItemDiv = styled.div`
 const ListItem = (props) => {
   return (
     <ListItemDiv>
-      <span>{props.id}</span>
+      <span>{props.sn}</span>
       <span>{props.quote}</span>
       <span>{props.username}</span>
+      {/* <button>{props.deleteQuote}</button> */}
     </ListItemDiv>
   );
 };

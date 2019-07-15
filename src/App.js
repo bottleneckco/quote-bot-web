@@ -42,7 +42,7 @@ class App extends Component {
         // Need to check if key is available for use as datetime takes a while
         if (msgDocData.hasOwnProperty('datetime') && msgDocData.datetime.hasOwnProperty('seconds')) {
           datetime = new Date(msgDocData.datetime.seconds * 1000); 
-        }
+      }
         
         return {
           id: msgDoc.id,
@@ -65,26 +65,16 @@ class App extends Component {
       .catch(err => console.log("Unable to delete quote"))
   }
 
-  componentWillMount() {
-    console.log("componentWillMount")
-  }
-
-  componentDidMount() {
-    console.log("componentDidMount");
-  }
-
   componentWillUnmount() {
     this.unsubscribe();
   }
 
-  render() {
-      // console.log(Db);  
-      
+  render() {      
       return (
       <Container>
         <GlobalStyle />
         <Title>Telegram Quotes</Title>
-        <Quotes quotes={this.state.quotes} deleteQuote={this.deleteQuote} />
+        <Quotes quotes={this.state.quotes} deleteQuote={this.deleteQuote} startSN={1} />
       </Container>
     );
   }

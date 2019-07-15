@@ -3,19 +3,29 @@ import React, { Component } from 'react';
 import ListItem from '../components/ListItem';
 
 class Quotes extends Component {
-  constructor(props) {
-    super(props);
+  renderQuotes() {
+    const { quotes, deleteQuote } = this.props;
+    let sn = this.props.startSN;
+    let quotesJSX = []
 
-    this.state = {};
+    quotes.forEach(q => {
+      quotesJSX.push(
+        <ListItem
+          sn={sn} key={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
+          />)
+      
+      sn++;
+    })
+    
+    return quotesJSX;
   }
 
   render() {
     return (
       <div>
         <h3>List of quotes</h3>
-        <ListItem id="ID" quote="Quote" username="Username" />
-        <ListItem id="1" quote="qwgthisgas" username="ivan" />
-        <ListItem id="2" quote="gasiodghasgasgasdgasgas" username="chester" />
+        <ListItem sn="SN" quote="Quote" username="Username" />
+        {this.renderQuotes()}
       </div>
     );
   }
