@@ -13,12 +13,11 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-
 const App = () => (
   <Container>
     <GlobalStyle />
     <Title>Telegram Quotes</Title>
-    <Quotes startSN={1} />
+    <Quotes />
   </Container>
 );
 
