@@ -6,18 +6,12 @@ class Quotes extends Component {
   renderQuotes() {
     const { quotes, deleteQuote } = this.props;
     let sn = this.props.startSN;
-    let quotesJSX = []
 
-    quotes.forEach(q => {
-      quotesJSX.push(
-        <ListItem
-          key={q.id} sn={sn} id={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
-          />)
-      
-      sn++;
-    })
-    
-    return quotesJSX;
+    return quotes.map((q, idx) => (
+      <ListItem
+        key={q.id} sn={sn+idx} id={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
+        />
+    ))
   }
 
   render() {

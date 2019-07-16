@@ -21,8 +21,8 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = { quotes: [] }    
-    this.deleteQuote = this.deleteQuote.bind(this)
+    this.state = { quotes: [] };
+    this.deleteQuote = this.deleteQuote.bind(this);
 
     this.retrieveData();
   }
@@ -55,13 +55,13 @@ class App extends Component {
       console.log("Refreshed data");
     }, err => {
       console.log("Unable to refresh data: " + err);
-    })
+    });
   }
 
   deleteQuote(quoteId) {
     this.collectionRef.doc(quoteId).delete()
       .then(success => console.log("Quote successfully deleted"))
-      .catch(err => console.log("Unable to delete quote"))
+      .catch(err => console.log("Unable to delete quote"));
   }
 
   componentWillUnmount() {
