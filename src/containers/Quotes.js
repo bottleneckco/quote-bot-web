@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import ListItem from '../components/ListItem';
 
 class Quotes extends Component {
   renderQuotes() {
-    const { quotes, deleteQuote } = this.props;
-    let sn = this.props.startSN;
+    console.log(this.props);
+    const { startSN, quotes, deleteQuote } = this.props;
 
     return quotes.map((q, idx) => (
       <ListItem
-        key={q.id} sn={sn+idx} id={q.id} quote={q.msg} username={q.user} deleteQuote={deleteQuote} 
-        />
-    ))
+        key={q.id}
+        id={q.id}
+        sn={startSN + idx}
+        quote={q.msg}
+        username={q.user}
+        deleteQuote={deleteQuote}
+      />
+    ));
   }
 
   render() {
@@ -24,5 +30,15 @@ class Quotes extends Component {
     );
   }
 }
+
+Quotes.defaultProps = {
+  quotes: []
+};
+
+Quotes.propTypes = {
+  deleteQuote: PropTypes.func.isRequired,
+  startSN: PropTypes.number.isRequired,
+  quotes: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default Quotes;

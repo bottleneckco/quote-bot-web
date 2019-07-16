@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ListItemDiv = styled.div`
@@ -14,15 +15,21 @@ const ListItemDiv = styled.div`
   border-radius: 5px;
 `;
 
-const ListItem = (props) => {
-  return (
-    <ListItemDiv>
-      <span>{props.sn}</span>
-      <span>{props.quote}</span>
-      <span>{props.username}</span>
-      {props.sn !== 'SN' ? <button onClick={()=> props.deleteQuote(props.id)}>Delete</button> : '' }
-    </ListItemDiv>
-  );
+const ListItem = ({ id, sn, quote, username, deleteQuote }) => (
+  <ListItemDiv>
+    <span>{sn}</span>
+    <span>{quote}</span>
+    <span>{username}</span>
+    {sn !== 'SN' ? <button type="button" onClick={() => deleteQuote(id)}>x</button> : '' }
+  </ListItemDiv>
+);
+
+ListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  sn: PropTypes.string.isRequired,
+  quote: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  deleteQuote: PropTypes.func.isRequired
 };
 
 export default ListItem;
