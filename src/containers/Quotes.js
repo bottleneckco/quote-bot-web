@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import ListItem from '../components/ListItem';
+import ListHeader from '../components/ListHeader';
+
+const ListItemsContainer = styled.div`
+  width: 45rem;
+  max-width: 90%;
+  margin: 0 auto;
+`;
 
 class Quotes extends Component {
   renderQuotes() {
-    console.log(this.props);
     const { startSN, quotes, deleteQuote } = this.props;
 
     return quotes.map((q, idx) => (
@@ -23,9 +30,10 @@ class Quotes extends Component {
   render() {
     return (
       <div>
-        <h3>List of quotes</h3>
-        <ListItem sn="SN" quote="Quote" username="Username" />
-        {this.renderQuotes()}
+        <ListHeader />
+        <ListItemsContainer>
+          {this.renderQuotes()}
+        </ListItemsContainer>
       </div>
     );
   }
