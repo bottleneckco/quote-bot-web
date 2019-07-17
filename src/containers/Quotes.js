@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Db from '../firebase';
@@ -17,7 +16,7 @@ class Quotes extends Component {
   constructor() {
     super();
 
-    this.state = { quotes: [] };
+    this.state = { error: '', quotes: [] };
     this.deleteQuote = this.deleteQuote.bind(this);
   }
 
@@ -26,14 +25,25 @@ class Quotes extends Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
+    if (typeof this.unsubscribe !== 'undefined') {
+      this.unsubscribe();
+    }
   }
 
   retrieveData() {
-    // TODO: Dynamic chat id
-    const chatId = '-394500082';
+    // eslint-disable-next-line no-undef
+    const chatId = window.location.pathname;
+    if (chatId === '/') {
+      this.setState({ error: 'Please provide a valid chat id' });
+      return;
+    }
+
     this.collectionRef = Db.collection('chats').doc(chatId).collection('msgs');
     this.unsubscribe = this.collectionRef.orderBy('datetime').onSnapshot((res) => {
+      if (res.empty) {
+        this.setState({ error: 'No quotes found.' });
+      }
+
       // res is QuerySnapshot, res.docs is an array of queryDocumentSnapshots
       const quotesArr = res.docs.map((msgDoc) => {
         const msgDocData = msgDoc.data();
@@ -64,8 +74,8 @@ class Quotes extends Component {
   }
 
   renderQuotes() {
-    const { startSN } = this.props;
     const { quotes } = this.state;
+    const startSN = 1;
 
     return quotes.map((q, idx) => (
       <ListItem
@@ -80,9 +90,11 @@ class Quotes extends Component {
   }
 
   render() {
+    const { error } = this.state;
     return (
       <div>
         <ListHeader />
+        <p>{error !== '' ? error : ''}</p>
         <ListItemsContainer>
           {this.renderQuotes()}
         </ListItemsContainer>
@@ -90,9 +102,5 @@ class Quotes extends Component {
     );
   }
 }
-
-Quotes.propTypes = {
-  startSN: PropTypes.number.isRequired
-};
 
 export default Quotes;
